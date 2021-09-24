@@ -59,7 +59,7 @@
 
             <h1 class="mb-4 flex flex-row items-center mt-8">
                 <img src="file.png" class="h-8 w-8" />
-                <span class="ml-2 font-bold text-2xl font-extrabold">techs</span>
+                <span class="ml-2 font-bold text-2xl font-extrabold">technologies</span>
             </h1>
 
             <div class="flex flex-col gap-6 pl-10">
@@ -126,9 +126,10 @@ export default {
                 { name: 'TypeScript', logo: 'typescript.svg' },
                 { name: 'Dart', logo: 'dart.svg' },
                 { name: 'Kotlin', logo: 'kotlin-1.svg' },
+                { name: 'PHP', logo: 'php-1.svg' },
             ],
             [
-                { name: 'SQL', logo: 'postgresql.svg' },
+                { name: 'SQL', logo: 'mysql-6.svg' },
                 { name: 'MongoDB', logo: 'mongodb-icon-1.svg' },
                 { name: 'Firebase', logo: 'firebase-1.svg' },
                 { name: 'Neo4j', logo: 'neo4j.svg' },
@@ -137,7 +138,7 @@ export default {
             if (a.name > b.name) return 1
             if (b.name > a.name) return -1
             return 0
-        } ))
+        }))
 
         return {
             techs,
@@ -148,7 +149,7 @@ export default {
 
     methods: {
         zoomIn() {
-            /* const me = this.$refs['me']
+            const me = this.$refs['me']
             const rect = me.getBoundingClientRect()
 
             const zoom = this.$refs['zoom']
@@ -157,10 +158,10 @@ export default {
             zoom.style.top = rect.top + 'px'
             zoom.style.left = rect.left + 'px'
 
-            const meZoom = this.$refs['me-zoom']
-            meZoom.style.borderRadius = '50%'
+            /* const meZoom = this.$refs['me-zoom']
+            meZoom.style.borderRadius = '50%' */
 
-            const { default: anime} = require('animejs')
+            const { default: anime } = require('animejs')
 
             this.zoom = true
 
@@ -175,12 +176,12 @@ export default {
                 top: [rect.top, 0],
                 left: [rect.left, 0],
             })
-            .add({
+            /* .add({
                 targets: meZoom,
                 borderRadius: ['50%', '0%']
             }, 0) */
 
-            this.zoom = true
+            /* this.zoom = true
             const zoom = this.$refs['zoom']
 
             const { default: anime} = require('animejs')
@@ -190,11 +191,11 @@ export default {
                 easing: 'easeInOutQuad',
                 duration: 500,
                 opacity: [0, 1],
-            })
+            }) */
         },
 
         zoomOut() {
-            /* const zoom = this.$refs['zoom']
+            const zoom = this.$refs['zoom']
             const meZoom = this.$refs['me-zoom']
             const me = this.$refs['me']
             const rect = me.getBoundingClientRect()
@@ -215,12 +216,12 @@ export default {
                 top: [0, rect.top],
                 left: [0, rect.left],
             })
-            .add({
+            /* .add({
                 targets: meZoom,
                 borderRadius: ['0%', '50%']
             }, 0) */
 
-            const zoom = this.$refs['zoom']
+            /* const zoom = this.$refs['zoom']
 
             const { default: anime} = require('animejs')
 
@@ -232,7 +233,7 @@ export default {
                 complete: () => {
                     this.zoom = false
                 }
-            })
+            }) */
         },
     }
 }
