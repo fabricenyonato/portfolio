@@ -150,14 +150,15 @@ export default {
     },
 
     mounted() {
-        if (matchMedia('(pointer: fine)').matches)
-            this.window.addEventListener('mouseenter', this.mouseenter)
+        if (matchMedia('(pointer: fine)').matches) {
+            this.window.addEventListener('mousemove', this.mousemove)
+            this.window.addEventListener('mouseleave', this.mouseleave)
+        }
     },
 
     destroyed() {
-        this.window.removeEventListener('mouseenter', this.mouseenter)
         this.window.addEventListener('mouseleave', this.mouseleave)
-        removeEventListener('mousemove', this.mousemove)
+        this.window.removeEventListener('mousemove', this.mousemove)
     },
 
     computed: {
@@ -227,31 +228,13 @@ export default {
          * @param {MouseEvent} event
          */
         mousemove(event) {
-            this.move(event)
-        },
-
-        /**
-         * @param {MouseEvent} event
-         */
-        move(event) {
             Object.assign(this.zone.style, {
                 left: this.left(event.x),
                 top: this.top(event.y)
             })
         },
 
-        /**
-         * @param {MouseEvent} event
-         */
-        mouseenter(event) {
-            this.move(event)
-
-            addEventListener('mousemove', this.mousemove)
-            this.window.addEventListener('mouseleave', this.mouseleave)
-        },
-
         mouseleave() {
-            removeEventListener('mousemove', this.mousemove)
             this.zone.style.left = ((innerWidth / 2) - 320) + 'px'
         },
 
@@ -299,31 +282,6 @@ export default {
     width: min(100%, 100vh, 100vw);
     height: min(100%, 100vh, 100vw);
 }
-
-/* #area {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    background-color: #000;
-    color: #f3f4f6;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    overflow: hidden;
-} */
-
-/* @media (pointer: coarse), (pointer: none) {
-    #area {
-        overflow: auto;
-    }
-
-    #el {
-        left: unset;
-        top: unset;
-        position: unset;
-        margin-left: auto;
-        margin-right: auto;
-    }
-} */
 
 #area {
     overflow: auto;
