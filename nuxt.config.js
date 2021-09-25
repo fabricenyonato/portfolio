@@ -52,6 +52,7 @@ export default {
                 extend: {
                     transitionProperty: {
                         'filter': 'filter',
+                        'margin-left': 'margin-left',
                     }
                 }
             }

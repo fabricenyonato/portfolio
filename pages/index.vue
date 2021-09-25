@@ -1,10 +1,10 @@
 <template>
-    <div class="fixed top-0 left-0 right-0 bottom-0 bg-black text-white text-lg overflow-auto ff-nunito font-semibold text-gray-100">
+    <div ref="area" id="area">
         <div @click="zoomOut()" class="fixed top-0 left-0 right-0 bottom-0 bg-black z-20 justify-center items-center backdrop-filter backdrop-blur bg-opacity-50 cursor-[zoom-out] transition-[top]" :class="{ hidden: !zoom, flex: zoom }" ref="zoom" id="zoom">
             <img ref="me-zoom" src="me.jpg" alt="fanrice nyonato" id="me-zoom" class="object-cover object-center" />
         </div>
 
-        <div class="max-w-screen-sm mx-auto flex flex-col my-8 px-4 z-10">
+        <div ref="el" id="el">
             <h1 class="mb-4 flex flex-row items-center">
                 <img src="man.png" class="h-8 w-8" />
                 <span class="ml-2 font-bold text-2xl font-extrabold">me</span>
@@ -14,7 +14,9 @@
                 <svg @click="zoomIn()" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" class="h-32 w-32 cursor-[zoom-in]" ref="me">
                     <defs>
                         <clipPath id="shape">
-                        <path id="blob" d="M478,287Q477,324,460,357Q443,390,414.5,413.5Q386,437,356,460Q326,483,288,485Q250,487,215.5,474Q181,461,153.5,441Q126,421,106.5,395Q87,369,53.5,347Q20,325,21.5,287.5Q23,250,38.5,218Q54,186,70.5,159Q87,132,107.5,107Q128,82,150.5,48Q173,14,211.5,15Q250,16,281.5,36.5Q313,57,354,54Q395,51,419,80.5Q443,110,454.5,145Q466,180,472.5,215Q479,250,478,287Z" fill="#d1d8e0"></path>
+                            <path fill="#f00">
+                                <animate  repeatCount="indefinite" attributeName="d" dur="10s" values="M489.5,288Q483,326,463,358Q443,390,401.5,396Q360,402,341,436Q322,470,286,465.5Q250,461,222.5,440.5Q195,420,161,419.5Q127,419,106,394.5Q85,370,75.5,340Q66,310,55,280Q44,250,47.5,217.5Q51,185,77,164Q103,143,117.5,115.5Q132,88,156.5,63Q181,38,215.5,35.5Q250,33,283.5,38.5Q317,44,351,54Q385,64,414,86.5Q443,109,436.5,150.5Q430,192,463,221Q496,250,489.5,288Z;M481.5,288Q485,326,446,345Q407,364,384.5,384Q362,404,341,434Q320,464,285,481Q250,498,218.5,471.5Q187,445,157,432Q127,419,108,393Q89,367,83.5,336.5Q78,306,64,278Q50,250,44.5,216Q39,182,65.5,158.5Q92,135,103,99Q114,63,151.5,62Q189,61,219.5,41Q250,21,288.5,17.5Q327,14,355,40Q383,66,416.5,85Q450,104,460,141.5Q470,179,474,214.5Q478,250,481.5,288Z;M454.5,285.5Q469,321,451,352Q433,383,401,398.5Q369,414,340.5,427Q312,440,281,449.5Q250,459,212.5,470.5Q175,482,157.5,441.5Q140,401,117,382Q94,363,72,339Q50,315,38,282.5Q26,250,36,217Q46,184,47.5,144Q49,104,90.5,95.5Q132,87,158.5,69Q185,51,217.5,61Q250,71,279,71Q308,71,349.5,63Q391,55,410,87.5Q429,120,429,156Q429,192,434.5,221Q440,250,454.5,285.5Z;M480.5,288.5Q487,327,460,355Q433,383,395,390.5Q357,398,335.5,422.5Q314,447,282,471.5Q250,496,218,471.5Q186,447,153,438Q120,429,97.5,403Q75,377,44.5,352Q14,327,18.5,288.5Q23,250,52.5,222.5Q82,195,81.5,161.5Q81,128,104.5,105Q128,82,156,64Q184,46,217,26Q250,6,281.5,31.5Q313,57,346,65Q379,73,403,97.5Q427,122,446,151Q465,180,469.5,215Q474,250,480.5,288.5Z;M489.5,288Q483,326,463,358Q443,390,401.5,396Q360,402,341,436Q322,470,286,465.5Q250,461,222.5,440.5Q195,420,161,419.5Q127,419,106,394.5Q85,370,75.5,340Q66,310,55,280Q44,250,47.5,217.5Q51,185,77,164Q103,143,117.5,115.5Q132,88,156.5,63Q181,38,215.5,35.5Q250,33,283.5,38.5Q317,44,351,54Q385,64,414,86.5Q443,109,436.5,150.5Q430,192,463,221Q496,250,489.5,288Z" />
+                            </path>
                         </clipPath>
                     </defs>
 
@@ -147,6 +149,33 @@ export default {
         }
     },
 
+    mounted() {
+        if (matchMedia('(pointer: fine)').matches)
+            this.window.addEventListener('mouseenter', this.mouseenter)
+    },
+
+    destroyed() {
+        this.window.removeEventListener('mouseenter', this.mouseenter)
+        this.window.addEventListener('mouseleave', this.mouseleave)
+        removeEventListener('mousemove', this.mousemove)
+    },
+
+    computed: {
+        /**
+         * @returns {HTMLElement}
+         */
+        window() {
+            return this.$refs['area']
+        },
+
+        /**
+         * @returns {HTMLElement}
+         */
+        zone() {
+            return this.$refs['el']
+        },
+    },
+
     methods: {
         zoomIn() {
             const me = this.$refs['me']
@@ -158,82 +187,99 @@ export default {
             zoom.style.top = rect.top + 'px'
             zoom.style.left = rect.left + 'px'
 
-            /* const meZoom = this.$refs['me-zoom']
-            meZoom.style.borderRadius = '50%' */
-
             const { default: anime } = require('animejs')
 
             this.zoom = true
 
-            anime.timeline({
+            anime({
                 easing: 'easeInOutQuad',
                 duration: 500,
-            })
-            .add({
                 targets: zoom,
                 height: [rect.height, innerHeight],
                 width: [rect.width, innerWidth],
                 top: [rect.top, 0],
                 left: [rect.left, 0],
             })
-            /* .add({
-                targets: meZoom,
-                borderRadius: ['50%', '0%']
-            }, 0) */
-
-            /* this.zoom = true
-            const zoom = this.$refs['zoom']
-
-            const { default: anime} = require('animejs')
-
-            anime({
-                targets: zoom,
-                easing: 'easeInOutQuad',
-                duration: 500,
-                opacity: [0, 1],
-            }) */
         },
 
         zoomOut() {
             const zoom = this.$refs['zoom']
-            const meZoom = this.$refs['me-zoom']
             const me = this.$refs['me']
             const rect = me.getBoundingClientRect()
 
-            const { default: anime} = require('animejs')
+            const { default: anime } = require('animejs')
 
-            anime.timeline({
+            anime({
                 easing: 'easeInOutQuad',
                 duration: 500,
-                complete: () => {
-                    this.zoom = false
-                }
-            })
-            .add({
                 targets: zoom,
                 height: [innerHeight, rect.height],
                 width: [innerWidth, rect.width],
                 top: [0, rect.top],
                 left: [0, rect.left],
-            })
-            /* .add({
-                targets: meZoom,
-                borderRadius: ['0%', '50%']
-            }, 0) */
-
-            /* const zoom = this.$refs['zoom']
-
-            const { default: anime} = require('animejs')
-
-            anime({
-                targets: zoom,
-                easing: 'easeInOutQuad',
-                duration: 500,
-                opacity: [1, 0],
                 complete: () => {
                     this.zoom = false
                 }
-            }) */
+            })
+        },
+
+        /**
+         * @param {MouseEvent} event
+         */
+        mousemove(event) {
+            this.move(event)
+        },
+
+        /**
+         * @param {MouseEvent} event
+         */
+        move(event) {
+            Object.assign(this.zone.style, {
+                left: this.left(event.x),
+                top: this.top(event.y)
+            })
+        },
+
+        /**
+         * @param {MouseEvent} event
+         */
+        mouseenter(event) {
+            this.move(event)
+
+            addEventListener('mousemove', this.mousemove)
+            this.window.addEventListener('mouseleave', this.mouseleave)
+        },
+
+        mouseleave() {
+            removeEventListener('mousemove', this.mousemove)
+            this.zone.style.left = ((innerWidth / 2) - 320) + 'px'
+        },
+
+        /**
+         * @param {number} x
+         * @returns {string}
+         */
+        left(x) {
+            const width = 640
+            const rect = this.zone.getBoundingClientRect()
+
+            if (x <= 16) return '0px'
+            if (x >= (innerWidth - 16)) return (innerWidth - width) + 'px'
+            if (x < (rect.x + 16)) return (x - 16) + 'px'
+            if (x > ((rect.x + width) - 16)) return ((x - width) + 16) + 'px'
+
+            return rect.x + 'px'
+        },
+
+        /**
+         * @param {number} y
+         * @returns {string}
+         */
+        top(y) {
+            const hiddenHeight = this.zone.offsetHeight - innerHeight
+            const percent = (y * 100) / innerHeight
+
+            return (-((hiddenHeight * percent) / 100)) + 'px'
         },
     }
 }
@@ -254,27 +300,65 @@ export default {
     height: min(100%, 100vh, 100vw);
 }
 
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar {
-    background: transparent;
-}
-
-::-webkit-scrollbar-track {
-    background: #303030;
-}
-
-::-webkit-scrollbar-thumb {
-    background:#4b4b4b;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background:#535353;
-}
-
-.ff-nunito {
+/* #area {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    color: #f3f4f6;
     font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    overflow: hidden;
+} */
+
+/* @media (pointer: coarse), (pointer: none) {
+    #area {
+        overflow: auto;
+    }
+
+    #el {
+        left: unset;
+        top: unset;
+        position: unset;
+        margin-left: auto;
+        margin-right: auto;
+    }
+} */
+
+#area {
+    overflow: auto;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    color: #f3f4f6;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+}
+
+@media (pointer: fine) {
+    #area {
+        position: relative;
+        overflow: hidden;
+    }
+
+    #el {
+        position: absolute;
+        left: calc(50vw - 320px);
+        top: 0px;
+
+        transition-property: left, top;
+        transition-duration: 150ms;
+        transition-timing-function: ease-out;
+    }
+}
+
+#el {
+    display: flex;
+    flex-direction: column;
+    padding: 32px 16px;
+    z-index: 10;
+    max-width: 640px;
+    margin-right: auto;
+    margin-left: auto;
 }
 </style>
