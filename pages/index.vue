@@ -1,7 +1,7 @@
 <template>
     <div ref="area" id="area">
         <div @click="zoomOut()" class="fixed top-0 left-0 right-0 bottom-0 bg-black z-20 justify-center items-center backdrop-filter backdrop-blur bg-opacity-50 cursor-[zoom-out] transition-[top]" :class="{ hidden: !zoom, flex: zoom }" ref="zoom" id="zoom">
-            <img ref="me-zoom" src="me.jpg" alt="fanrice nyonato" id="me-zoom" class="object-cover object-center" />
+            <img ref="me-zoom" src="me.jpeg" alt="fanrice nyonato" id="me-zoom" class="object-cover object-center" />
         </div>
 
         <div ref="el" id="el">
@@ -20,7 +20,7 @@
                         </clipPath>
                     </defs>
 
-                    <image x="0" y="0" width="100%" height="100%" clip-path="url(#shape)" xlink:href="me.jpg" preserveAspectRatio="none" class="grayscale transition-filter duration-500" id="me"></image>
+                    <image x="0" y="0" width="100%" height="100%" clip-path="url(#shape)" xlink:href="me.jpeg" preserveAspectRatio="none" class="grayscale transition-filter duration-500" id="me"></image>
                 </svg>
 
                 <h2 class="text-xl font-bold mt-4 ff-nunito font-extrabold">Fabrice NYONATO</h2>
@@ -61,7 +61,7 @@
 
             <h1 class="mb-4 flex flex-row items-center mt-8">
                 <img src="file.png" class="h-8 w-8" />
-                <span class="ml-2 font-bold text-2xl font-extrabold">technologies</span>
+                <span class="ml-2 font-bold text-2xl font-extrabold">skills</span>
             </h1>
 
             <div class="flex flex-col gap-6 pl-10">
@@ -264,7 +264,7 @@ export default {
 
             return (-((hiddenHeight * percent) / 100)) + 'px'
         },
-    }
+    },
 }
 </script>
 

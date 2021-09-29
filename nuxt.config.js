@@ -2,15 +2,20 @@ export default {
     target: 'static',
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
-        title: 'fabrice nyonato',
+        title: 'Fabrice NYONATO',
             htmlAttrs: {
             lang: 'en'
         },
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { hid: 'description', name: 'description', content: '' },
-            { name: 'format-detection', content: 'telephone=no' }
+            { hid: 'description', name: 'description', content: 'Developpeur freelance, Lome, Togo, Web, Mobile, JavaScript, Flutter' },
+            { name: 'format-detection', content: 'telephone=no' },
+            { property: 'og:title', content: 'Fabrice NYONATO' },
+            { property: 'og:description', content: 'Developpeur freelance, Lome, Togo, Web, Mobile, JavaScript, Flutter' },
+            { property: 'og:image', content: 'https://www.fabrice-nyonato.com/me.jpeg' },
+            { property: 'og:url', content: 'https://www.fabrice-nyonato.com' },
+            { property: 'og:type', content: 'profile' },
         ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
