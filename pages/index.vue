@@ -35,6 +35,11 @@
           <span>nykorefa@gmail.com</span>
         </a>
 
+        <a href="https://www.linkedin.com/in/fabrice-nyonato-b53476223/" target="_blank" class="flex flex-row items-center gap-2">
+          <img src="linkedin-logo-icon.svg" alt="linkedin icon" class="h-4" />
+          <span>linkedin</span>
+        </a>
+
         <a href="https://github.com/fabricenyonato" target="_blank" class="flex flex-row items-center gap-2">
           <img src="github-icon-1.svg" alt="github icon" class="h-4" />
           <span>fabricenyonato</span>
@@ -85,14 +90,14 @@ export default {
           url: 'https://naam.fabrice-nyonato.com',
           img: 'naam.png',
           year: '2021',
-          techs: ['nuxt', 'strapi'],
+          techs: ['nuxt', 'graphcms'],
         },
         {
-          name: 'nuxt forest',
-          url: 'https://nuxt-blog-seven.vercel.app',
-          img: 'nuxt-forest.png',
+          name: 'siwa hair up',
+          url: 'https://siwa-hair-up.fabrice-nyonato.com/',
+          img: 'siwa-hair-up.png',
           year: '2021',
-          techs: ['nuxt'],
+          techs: ['nuxt', 'strapi'],
         },
         {
           name: 'contacts to csv',
